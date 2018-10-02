@@ -10,6 +10,10 @@ class User(Base):
     user_name = Column(String(250), nullable=False)
     password =  Column(String(250), nullable=False)
 
+    # From python object to dictionary
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
 class User_Info(Base):
     __tablename__ = 'user_info'
     id = Column(Integer, primary_key=True)
@@ -18,6 +22,10 @@ class User_Info(Base):
     user_address = Column(String(250))
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
+
+    # From python object to dictionary
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 class Note(Base):
     __tablename__ = 'note'
